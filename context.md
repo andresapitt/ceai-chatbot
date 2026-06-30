@@ -1,0 +1,12 @@
+# Company Context: Shine-VR (www.shine-vr.com)
+
+## 1. Niche & Business Overview
+Shine-VR is a specialized B2B healthcare technology company that provides evidence-based VR therapy platforms to healthcare institutions for clinical uses like chronic pain distraction and stress reduction. Because its clinical users—such as hospital staff, therapists, and patients—are often unfamiliar with hardware configurations, the business relies heavily on customer service to ensure seamless onboarding and daily operational success. 
+
+## 2. The 80% Bottleneck
+Approximately 80% of all customer service tickets stem from initial hardware friction and platform access issues. Specifically, users encounter regular difficulties configuring and navigating the three deployment models: Meta Quest 2/3, Pico Neo 3, and the mobile/smartphone apps. Recurring issues include:
+* **Hardware & Connectivity:** Patients and clinicians struggle with connecting to local hospital/clinic Wi-Fi networks, pairing or using the controllers, and handling display visibility issues (e.g., fuzzy screens or menu recentering).
+* **Access & Platform Logins:** Users frequently face issues logging in, acquiring or entering the necessary platform Unlock Codes, and resetting central menus.
+
+## 3. Case Study Summary (Circa 150 words)
+Shine-VR provides evidence-based virtual reality therapy software directly to healthcare institutions to assist with clinical chronic pain management and stress reduction. Given that medical staff and patients are rarely tech experts, the company relies heavily on customer support to maintain operational uptime in clinical environments. Currently, 80% of all inbound service inquiries involve basic hardware friction and platform access hurdles. Clinicians and patients frequently encounter difficulties logging into the application, managing unlock codes, and configuring the platform across its three primary configurations: Meta Quest, Pico Neo, and mobile smartphone setups. Specific recurring technical bottlenecks include pairing and navigating controllers, initializing local Wi-Fi connections, updating network access, and recentering fuzzy or misaligned user interfaces. To alleviate this heavy customer service strain and ensure uninterrupted therapeutic sessions, Shine-VR requires an intelligent, automated technical support chatbot capable of guiding non-technical healthcare users through hardware troubleshooting and authentication workflows.
