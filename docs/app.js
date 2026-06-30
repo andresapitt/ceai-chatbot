@@ -62,10 +62,14 @@
     keyError.hidden = true;
     keyInput.value = "";
     keyPanel.hidden = false;
+    // Inline style wins over any (possibly cached) stylesheet rule.
+    keyPanel.style.display = "flex";
     keyInput.focus();
   }
   function hideKeyPanel() {
     keyPanel.hidden = true;
+    // Force it gone even if an old cached style.css forces display:flex.
+    keyPanel.style.display = "none";
     input.focus();
   }
 
