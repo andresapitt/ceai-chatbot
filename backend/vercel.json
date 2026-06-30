@@ -1,7 +1,9 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "functions": {
-    "api/chat.js": { "maxDuration": 30 }
-  }
+  "version": 2,
+  "builds": [
+    { "src": "api/chat.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/chat", "dest": "/api/chat.js" }
+  ]
 }
