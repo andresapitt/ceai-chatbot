@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShineVR Support (static demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" role="main">
+    <header class="app__header">
+      <div class="brand">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <div>
+          <h1 class="brand__title">ShineVR Support</h1>
+          <p class="brand__sub">Hardware and login help for your VR therapy session</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="keyBtn" class="btn-reset" type="button" title="Change API key">Key</button>
+        <button id="reset" class="btn-reset" type="button" title="Start a new conversation">New chat</button>
+      </div>
+    </header>
+
+    <!-- Loud warning: this is a browser-only demo, the key is not server-side -->
+    <div class="warnbar" role="note">
+      Demo build: this page calls Gemini directly from your browser. Your API key
+      is stored only in this browser (localStorage) and is sent to Google with each
+      request. Use a low-quota throwaway key, never a shared or production key.
+    </div>
+
+    <!-- Key setup panel, shown when no key is stored -->
+    <div id="keyPanel" class="keypanel" hidden>
+      <div class="keypanel__card">
+        <h2 class="keypanel__title">Enter your Gemini API key</h2>
+        <p class="keypanel__text">
+          Get a free key at
+          <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>.
+          It stays in your browser only and is never uploaded to GitHub.
+        </p>
+        <label class="sr-only" for="keyInput">API key</label>
+        <input id="keyInput" class="keypanel__input" type="password"
+          placeholder="Paste your API key" autocomplete="off">
+        <div class="keypanel__row">
+          <label class="keypanel__check">
+            <input id="keyShow" type="checkbox"> Show
+          </label>
+          <button id="keySave" class="composer__send" type="button">Save key</button>
+        </div>
+        <p id="keyError" class="keypanel__error" hidden></p>
+      </div>
+    </div>
+
+    <section id="messages" class="messages" aria-live="polite" aria-label="Conversation"></section>
+
+    <div class="quick" id="quick" aria-label="Common problems">
+      <span class="quick__label">Common issues:</span>
+      <button class="chip" type="button">My screen is fuzzy</button>
+      <button class="chip" type="button">Cannot connect to Wi-Fi</button>
+      <button class="chip" type="button">Controller will not pair</button>
+      <button class="chip" type="button">I need to enter an unlock code</button>
+      <button class="chip" type="button">How do I recenter the view?</button>
+    </div>
+
+    <form id="composer" class="composer" autocomplete="off">
+      <label class="sr-only" for="input">Type your message</label>
+      <textarea id="input" class="composer__input" rows="1"
+        placeholder="Describe what is happening with your headset or app..."></textarea>
+      <button id="send" class="composer__send" type="submit" aria-label="Send message">Send</button>
+    </form>
+    <p class="disclaimer">For a broken device or a code that will not work, contact your ShineVR administrator.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

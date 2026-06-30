@@ -52,6 +52,27 @@ Built with [Google AI Studio](https://aistudio.google.com) and the
 | Secrets | API key read from the environment / `.env`, never hard-coded |
 | Persona | A ShineVR support system instruction in `chatbot.py` |
 
+## Static version for GitHub Pages (`docs/`)
+
+The `docs/` folder is a backend-free build that can be hosted on GitHub Pages.
+It calls the Gemini REST API directly from the browser, so there is no Python
+server. Each user pastes their own API key, which is stored only in their
+browser (localStorage) and is never committed.
+
+**Enable it:**
+1. Push this repo to GitHub (already done).
+2. On GitHub: Settings, then Pages.
+3. Under "Build and deployment", set Source to "Deploy from a branch",
+   Branch to `main`, folder to `/docs`, then Save.
+4. After a minute it is live at `https://andresapitt.github.io/ceai-chatbot/`.
+5. Open it, click "Key", paste a Gemini API key, and chat.
+
+**Important trade-off:** a browser-only app cannot hide the API key from the
+person using it. Anyone with the page can read their own key from the browser,
+and the key travels to Google with every request. Use a **low-quota throwaway
+key**, never a shared or production key. For a key that stays secret, deploy
+the Flask version (`app.py`) to a host that runs Python instead.
+
 ## Security
 
 The API key is a secret. It lives only in your local `.env` file, which is
