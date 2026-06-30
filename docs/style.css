@@ -95,6 +95,9 @@ body {
   padding: 20px;
   z-index: 10;
 }
+/* The display:flex above beats the default [hidden]{display:none}, so make the
+   hidden state explicit, otherwise the panel never goes away. */
+.keypanel[hidden] { display: none; }
 .keypanel__card {
   background: #fff;
   border-radius: var(--radius);
