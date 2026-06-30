@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShineVR Support</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="app" role="main">
+    <header class="app__header">
+      <div class="brand">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <div>
+          <h1 class="brand__title">ShineVR Support</h1>
+          <p class="brand__sub">Hardware and login help for your VR therapy session</p>
+        </div>
+      </div>
+      <button id="reset" class="btn-reset" type="button" title="Start a new conversation">
+        New chat
+      </button>
+    </header>
+
+    <section id="messages" class="messages" aria-live="polite" aria-label="Conversation">
+      <!-- messages are inserted here -->
+    </section>
+
+    <div class="quick" id="quick" aria-label="Common problems">
+      <span class="quick__label">Common issues:</span>
+      <button class="chip" type="button">My screen is fuzzy</button>
+      <button class="chip" type="button">Cannot connect to Wi-Fi</button>
+      <button class="chip" type="button">Controller will not pair</button>
+      <button class="chip" type="button">I need to enter an unlock code</button>
+      <button class="chip" type="button">How do I recenter the view?</button>
+    </div>
+
+    <form id="composer" class="composer" autocomplete="off">
+      <label class="sr-only" for="input">Type your message</label>
+      <textarea id="input" class="composer__input" rows="1"
+        placeholder="Describe what is happening with your headset or app..."></textarea>
+      <button id="send" class="composer__send" type="submit" aria-label="Send message">
+        Send
+      </button>
+    </form>
+    <p class="disclaimer">For a broken device or a code that will not work, contact your ShineVR administrator.</p>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

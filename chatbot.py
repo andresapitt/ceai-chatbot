@@ -59,7 +59,10 @@ MODEL = "gemini-2.5-flash"   # lightweight, fast, free-tier friendly
 RPM_LIMIT = 15               # free-tier safe limit: 15 requests per minute
 WINDOW_SECONDS = 60
 
-SYSTEM_INSTRUCTION = """
+# The authoritative system prompt lives in knowledge.md so it can be edited
+# without touching code. If that file is missing, fall back to the built-in
+# instruction below. Both the terminal bot and the web UI use this value.
+_FALLBACK_INSTRUCTION = """
 You are the ShineVR Technical Support Assistant.
 
 ShineVR is a B2B healthcare technology company that provides evidence-based
@@ -111,6 +114,22 @@ Style:
      full stops, or parentheses instead.
    - Keep replies short and scannable. One clear action beats six options.
 """.strip()
+
+
+def _load_system_instruction():
+    """Prefer the editable knowledge.md prompt; fall back to the built-in one."""
+    kb_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "knowledge.md")
+    try:
+        with open(kb_path, "r", encoding="utf-8") as handle:
+            text = handle.read().strip()
+        if text:
+            return text
+    except OSError:
+        pass
+    return _FALLBACK_INSTRUCTION
+
+
+SYSTEM_INSTRUCTION = _load_system_instruction()
 
 
 # --- Backend (Tomas): respect the free-tier rate limit -----------------------
