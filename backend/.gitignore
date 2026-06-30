@@ -1,0 +1,5 @@
+# Never commit the real key or local Vercel state
+.env
+.env*.local
+.vercel
+node_modules/

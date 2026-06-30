@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShineVR Support (static demo)</title>
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <main class="app" role="main">
@@ -23,7 +23,7 @@
     </header>
 
     <!-- Loud warning: this is a browser-only demo, the key is not server-side -->
-    <div class="warnbar" role="note">
+    <div id="warnbar" class="warnbar" role="note">
       Demo build: this page calls Gemini directly from your browser. Your API key
       is stored only in this browser (localStorage) and is sent to Google with each
       request. Use a low-quota throwaway key, never a shared or production key.
@@ -71,6 +71,6 @@
     <p class="disclaimer">For a broken device or a code that will not work, contact your ShineVR administrator.</p>
   </main>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

@@ -52,6 +52,35 @@ Built with [Google AI Studio](https://aistudio.google.com) and the
 | Secrets | API key read from the environment / `.env`, never hard-coded |
 | Persona | A ShineVR support system instruction in `chatbot.py` |
 
+## Three ways to run it
+
+| Build | Where it runs | Key location | Best for |
+|---|---|---|---|
+| `chatbot.py` | Your terminal | local `.env` | quick local use |
+| `app.py` (Flask) | A Python host (Render) | server env var | full app with session memory |
+| `docs/` (static) | GitHub Pages | the user's browser | zero-backend demo (user pastes key) |
+| `docs/` + `backend/` | Pages frontend + serverless backend | server env var only | **secure**: no user key, key never in browser |
+
+The last row is the recommended setup for a public demo: a static frontend on
+GitHub Pages talking to a serverless function that holds the key. See
+[`backend/README.md`](backend/README.md).
+
+## Secure frontend + backend (recommended for public hosting)
+
+The `backend/` folder is a serverless function (Vercel) that holds the Gemini
+key in an environment variable. The static `docs/` frontend can POST to it
+instead of calling Gemini directly, so the key is never in the browser or in
+git.
+
+To switch the frontend into this mode, deploy `backend/` (steps in
+`backend/README.md`), then set one line in `docs/app.js`:
+```js
+var BACKEND_URL = "https://YOUR-APP.vercel.app/api/chat";
+```
+When `BACKEND_URL` is set, the app routes every message through the backend and
+hides the key panel. When it is empty, the app stays in bring-your-own-key mode
+(below).
+
 ## Static version for GitHub Pages (`docs/`)
 
 The `docs/` folder is a backend-free build that can be hosted on GitHub Pages.

@@ -1,0 +1,7 @@
+{
+  "name": "shinevr-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Secure serverless backend for the ShineVR support chatbot. Holds the Gemini API key server-side."
+}

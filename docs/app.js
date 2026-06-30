@@ -20,6 +20,16 @@
   var RPM_LIMIT = 15; // free-tier safe limit
   var WINDOW_MS = 60000;
 
+  // ---- Backend mode --------------------------------------------------------
+  // Leave BACKEND_URL empty to use bring-your-own-key mode (the browser calls
+  // Gemini directly and the user pastes their own key).
+  // Set it to your deployed secure backend, e.g.
+  //   "https://your-app.vercel.app/api/chat"
+  // and the app routes every message through that server instead. Then the key
+  // lives only on the backend and users never enter one.
+  var BACKEND_URL = "";
+  var USE_BACKEND = BACKEND_URL.length > 0;
+
   var GREETING =
     "Hello, I am the ShineVR support assistant. I can help with Wi-Fi, " +
     "controllers, fuzzy screens, recentering, logins, and unlock codes.\n\n" +
@@ -128,13 +138,20 @@
   }
 
   // --- Gemini call ----------------------------------------------------------
-  async function callGemini(userText) {
+  async function callModel(userText) {
     history.push({ role: "user", parts: [{ text: userText }] });
-    var body = {
-      system_instruction: { parts: [{ text: systemPrompt }] },
-      contents: history,
-    };
-    var res = await fetch(ENDPOINT + "?key=" + encodeURIComponent(getKey()), {
+
+    var url, body;
+    if (USE_BACKEND) {
+      // The backend adds the key and the system prompt server-side.
+      url = BACKEND_URL;
+      body = { contents: history };
+    } else {
+      url = ENDPOINT + "?key=" + encodeURIComponent(getKey());
+      body = { system_instruction: { parts: [{ text: systemPrompt }] }, contents: history };
+    }
+
+    var res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -143,15 +160,24 @@
     if (!res.ok) {
       // roll back the user turn so a retry is clean
       history.pop();
-      var msg = (data && data.error && data.error.message) || ("HTTP " + res.status);
+      var msg =
+        (data && data.error && data.error.message) ||
+        (data && typeof data.error === "string" && data.error) ||
+        ("HTTP " + res.status);
       throw new Error(msg);
     }
-    var parts =
-      data.candidates &&
-      data.candidates[0] &&
-      data.candidates[0].content &&
-      data.candidates[0].content.parts;
-    var reply = parts ? parts.map(function (p) { return p.text || ""; }).join("") : "";
+
+    var reply;
+    if (USE_BACKEND) {
+      reply = data.reply || "";
+    } else {
+      var parts =
+        data.candidates &&
+        data.candidates[0] &&
+        data.candidates[0].content &&
+        data.candidates[0].content.parts;
+      reply = parts ? parts.map(function (p) { return p.text || ""; }).join("") : "";
+    }
     history.push({ role: "model", parts: [{ text: reply }] });
     return reply;
   }
@@ -161,7 +187,7 @@
     var message = (text || "").trim();
     if (!message) return;
 
-    if (!getKey()) {
+    if (!USE_BACKEND && !getKey()) {
       showKeyPanel();
       return;
     }
@@ -181,7 +207,7 @@
     var typing = addTyping();
 
     try {
-      var reply = await callGemini(message);
+      var reply = await callModel(message);
       typing.remove();
       addMessage(reply || "I did not get a response. Please try again.", "bot");
     } catch (err) {
@@ -236,9 +262,16 @@
   }
 
   (async function init() {
-    await loadPrompt();
+    if (USE_BACKEND) {
+      // No key needed: hide the key button and the browser-key warning.
+      if (keyBtn) keyBtn.style.display = "none";
+      var warn = document.getElementById("warnbar");
+      if (warn) warn.style.display = "none";
+    } else {
+      await loadPrompt();
+    }
     addMessage(GREETING, "bot");
-    if (!getKey()) showKeyPanel();
+    if (!USE_BACKEND && !getKey()) showKeyPanel();
     else input.focus();
   })();
 })();
