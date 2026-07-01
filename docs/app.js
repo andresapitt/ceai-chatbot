@@ -27,7 +27,7 @@
   //   "https://your-app.vercel.app/api/chat"
   // and the app routes every message through that server instead. Then the key
   // lives only on the backend and users never enter one.
-  var BACKEND_URL = "";
+  var BACKEND_URL = "https://ceai-chatbot.vercel.app/api/chat";
   var USE_BACKEND = BACKEND_URL.length > 0;
 
   var GREETING =
