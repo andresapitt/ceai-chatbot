@@ -1,7 +1,0 @@
-{
-  "name": "ceai-chatbot",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "description": "ShineVR support chatbot. Vercel serves the serverless function in /api; the static frontend lives in /docs (GitHub Pages)."
-}

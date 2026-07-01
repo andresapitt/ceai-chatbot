@@ -1,4 +1,4 @@
-// ShineVR secure backend: Gemini chat proxy
+// ShineVR secure backend: Gemini chat proxy  (deploy marker: r1)
 // ==========================================
 // A stateless serverless function (Vercel / Node 18+). It holds the Gemini API
 // key in an environment variable so the key is NEVER sent to the browser or
